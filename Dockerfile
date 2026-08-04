@@ -1,5 +1,5 @@
-# Use official OpenJDK image
-FROM openjdk:17-jdk-slim
+# Use Eclipse Temurin JDK 20 (official OpenJDK build)
+FROM eclipse-temurin:20-jdk
 
 # Set working directory
 WORKDIR /app
@@ -7,8 +7,11 @@ WORKDIR /app
 # Copy project files
 COPY . .
 
-# Build the app
+# Make mvnw executable
+RUN chmod +x mvnw
+
+# Build the application
 RUN ./mvnw clean package -DskipTests
 
-# Run the JAR
+# Run the JAR (use wildcard so you don't need exact name)
 CMD ["java", "-jar", "target/*.jar"]
