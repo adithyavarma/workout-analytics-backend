@@ -10,8 +10,10 @@ COPY . .
 # Make mvnw executable
 RUN chmod +x mvnw
 
+RUN ./mvnw --version
+
 # Build the application
 RUN ./mvnw clean package -DskipTests
 
 # Run the JAR (use wildcard so you don't need exact name)
-CMD ["java", "-jar", "target/*.jar"]
+CMD ["bash", "-c" , "java -jar target/*.jar"]
